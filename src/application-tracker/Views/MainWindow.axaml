@@ -1,0 +1,210 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:application_tracker.ViewModels"
+        x:Class="application_tracker.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Title="Application Tracker"
+        Width="1180"
+        Height="760"
+        MinWidth="920"
+        MinHeight="580"
+        Background="#E8EDF3">
+
+    <Window.Styles>
+        <Style Selector="TextBlock.h1">
+            <Setter Property="FontSize" Value="28" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Foreground" Value="#16202A" />
+        </Style>
+
+        <Style Selector="TextBlock.muted">
+            <Setter Property="Foreground" Value="#627386" />
+            <Setter Property="FontSize" Value="13" />
+        </Style>
+
+        <Style Selector="TextBlock.section">
+            <Setter Property="Foreground" Value="#16202A" />
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+        </Style>
+
+        <Style Selector="TextBlock.label">
+            <Setter Property="Foreground" Value="#526476" />
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="Margin" Value="0,12,0,4" />
+        </Style>
+
+        <Style Selector="Border.card">
+            <Setter Property="Background" Value="#F7F9FC" />
+            <Setter Property="BorderBrush" Value="#C9D4E0" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="8" />
+        </Style>
+
+        <Style Selector="TextBox, ComboBox">
+            <Setter Property="Background" Value="#FFFFFF" />
+            <Setter Property="Foreground" Value="#16202A" />
+            <Setter Property="BorderBrush" Value="#BFCBD8" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="6" />
+            <Setter Property="Padding" Value="10,7" />
+        </Style>
+
+        <Style Selector="TextBox:focus, ComboBox:focus">
+            <Setter Property="Background" Value="#FFFFFF" />
+            <Setter Property="Foreground" Value="#16202A" />
+            <Setter Property="BorderBrush" Value="#3D6FD8" />
+        </Style>
+
+        <Style Selector="Button">
+            <Setter Property="Padding" Value="14,8" />
+            <Setter Property="CornerRadius" Value="6" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Background" Value="#E5ECF3" />
+            <Setter Property="BorderBrush" Value="#C2CEDA" />
+            <Setter Property="Foreground" Value="#16202A" />
+        </Style>
+
+        <Style Selector="Button:pointerover">
+            <Setter Property="Background" Value="#D8E2EC" />
+            <Setter Property="Foreground" Value="#16202A" />
+        </Style>
+
+        <Style Selector="Button.primary">
+            <Setter Property="Background" Value="#3D6FD8" />
+            <Setter Property="BorderBrush" Value="#3D6FD8" />
+            <Setter Property="Foreground" Value="White" />
+        </Style>
+
+        <Style Selector="Button.primary:pointerover">
+            <Setter Property="Background" Value="#2F5DBC" />
+            <Setter Property="BorderBrush" Value="#2F5DBC" />
+            <Setter Property="Foreground" Value="White" />
+        </Style>
+
+        <Style Selector="ListBox">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="0" />
+        </Style>
+    </Window.Styles>
+
+    <Grid RowDefinitions="Auto,*" ColumnDefinitions="300,10,*" Margin="22">
+        <Grid Grid.Row="0" Grid.ColumnSpan="3" ColumnDefinitions="*,Auto" Margin="0,0,0,16">
+            <StackPanel>
+                <TextBlock Classes="h1" Text="Application Tracker" />
+                <TextBlock Classes="muted" Text="Bewerbungen, Kontakte und Rückmeldungen sauber im Griff." />
+            </StackPanel>
+
+            <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="10" VerticalAlignment="Center">
+                <Button Content="Export CSV" />
+                <Button Click="NewApplication_Click" Classes="primary" Content="Neue Bewerbung" />
+            </StackPanel>
+        </Grid>
+
+        <Border Grid.Row="1" Grid.Column="0" Classes="card" Padding="16">
+            <Grid RowDefinitions="Auto,Auto,*">
+                <StackPanel Grid.Row="0" Spacing="8">
+                    <TextBlock Classes="section" Text="Bewerbungen" />
+
+                    <TextBlock Classes="label" Text="Suche" Margin="0,10,0,4" />
+                    <TextBox />
+
+                    <TextBlock Classes="label" Text="Statusfilter" />
+                    <ComboBox SelectedIndex="0">
+                        <ComboBoxItem Content="Alle Status" />
+                        <ComboBoxItem Content="Offen" />
+                        <ComboBoxItem Content="Beworben" />
+                        <ComboBoxItem Content="Gespräch" />
+                        <ComboBoxItem Content="Absage" />
+                    </ComboBox>
+                </StackPanel>
+
+                <Border Grid.Row="1" Height="1" Background="#D6DFE8" Margin="0,16" />
+
+                <ListBox Grid.Row="2"
+                         ItemsSource="{Binding Applications}"
+                         SelectedItem="{Binding SelectedApplication}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Border Padding="12"
+                                    Margin="0,0,0,10"
+                                    Background="#EEF3F8"
+                                    CornerRadius="7">
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Company}"
+                                               FontWeight="SemiBold"
+                                               Foreground="#16202A" />
+                                    <TextBlock Text="{Binding Position}"
+                                               Foreground="#627386"
+                                               FontSize="12"
+                                               Margin="0,2,0,0" />
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Grid>
+        </Border>
+
+        <GridSplitter Grid.Row="1"
+                      Grid.Column="1"
+                      ResizeDirection="Columns"
+                      HorizontalAlignment="Stretch"
+                      VerticalAlignment="Stretch"
+                      Background="Transparent" />
+
+        <Border Grid.Row="1" Grid.Column="2" Classes="card" Padding="24">
+            <ScrollViewer>
+                <Grid RowDefinitions="Auto,Auto,Auto,Auto" ColumnDefinitions="*,*" ColumnSpacing="18">
+                    <StackPanel Grid.Row="0" Grid.ColumnSpan="2" Margin="0,0,0,12">
+                        <TextBlock Classes="section" Text="Details" />
+                        <TextBlock Classes="muted" Text="Alle wichtigen Infos zu einer Bewerbung." />
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="1" Grid.Column="0">
+                        <TextBlock Classes="label" Text="Firma" />
+                        <TextBox Text="{Binding SelectedApplication.Company}" />
+
+                        <TextBlock Classes="label" Text="Kontaktperson" />
+                        <TextBox Text="{Binding SelectedApplication.ContactPerson}" />
+
+                        <TextBlock Classes="label" Text="Bewerbungsdatum" />
+                        <DatePicker SelectedDate="{Binding SelectedApplication.ApplicationDate}"
+                                 Width="210"
+                                 HorizontalAlignment="Left" />
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="1" Grid.Column="1">
+                        <TextBlock Classes="label" Text="Stelle" />
+                        <TextBox Text="{Binding SelectedApplication.Position}" />
+
+                        <TextBlock Classes="label" Text="Status" />
+                        <ComboBox SelectedItem="{Binding SelectedApplication.Status}"
+                                  ItemsSource="{Binding StatusOptions}" />
+
+                        <TextBlock Classes="label" Text="Link" />
+                        <TextBox Text="{Binding SelectedApplication.Link}" />
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="2" Grid.ColumnSpan="2" Margin="0,14,0,0">
+                        <TextBlock Classes="label" Text="Notizen" />
+                        <TextBox Text="{Binding SelectedApplication.Notes}"
+                                 AcceptsReturn="True"
+                                 TextWrapping="Wrap"
+                                 MinHeight="150" />
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="3"
+                                Grid.ColumnSpan="2"
+                                Orientation="Horizontal"
+                                HorizontalAlignment="Right"
+                                Spacing="10"
+                                Margin="0,20,0,0">
+                        <Button Click="Delete_Click" Content="Löschen" />
+                        <Button Click="Save_Click" Classes="primary" Content="Speichern" />
+                    </StackPanel>
+                </Grid>
+            </ScrollViewer>
+        </Border>
+    </Grid>
+</Window>
