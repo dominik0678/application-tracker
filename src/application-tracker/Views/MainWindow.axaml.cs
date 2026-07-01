@@ -1,9 +1,10 @@
 using System;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
+using Avalonia;
 
 using application_tracker.ViewModels;
-using Avalonia;
+using application_tracker.Services;
 using application_tracker.Models;
 using System.Linq;
 using System.Collections.Generic;
@@ -71,5 +72,17 @@ public partial class MainWindow : Window
         {
             viewModel.Applications.Remove(appl);
         } 
+    }
+
+    private void ExportPdf_Click(object? sender, RoutedEventArgs e)
+    {
+        if (DataContext is not MainWindowViewModel viewModel)
+        {
+            return;
+        }
+
+        var path = ApplicationEffortPdfExporter.Export(viewModel.Applications);
+
+        Console.WriteLine($"PDF erstellt: {path}");
     }
 }

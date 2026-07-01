@@ -96,7 +96,7 @@
             </StackPanel>
 
             <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="10" VerticalAlignment="Center">
-                <Button Content="Export CSV" />
+                <Button Click="ExportPdf_Click" Content="Export PDF" />
                 <Button Click="NewApplication_Click" Classes="primary" Content="Neue Bewerbung" />
             </StackPanel>
         </Grid>
