@@ -11,39 +11,16 @@ namespace application_tracker.ViewModels;
 
 public class MainWindowViewModel : ViewModelBase
 {
-    public ObservableCollection<ApplicationEntry> Applications { get; } =
-    [
-        // new ApplicationEntry
-        // {
-        //     Company = "ELESTA GmbH",
-        //     Position = "Applikationsentwickler",
-        //     ContactPerson = "Herr Muster",
-        //     Status = "Beworben",
-        //     Link = "https://example.com",
-        //     Notes = "Beispielbewerbung zum Testen der GUI.",
-        //     ApplicationDate = DateTimeOffset.Now
-        // },
-        // new ApplicationEntry
-        // {
-        //     Company = "TRUMPF",
-        //     Position = "Junior Software Developer",
-        //     ContactPerson = "",
-        //     Status = "Offen",
-        //     Link = "",
-        //     Notes = "Interessante Firma, technische Softwareentwicklung.",
-        //     ApplicationDate = DateTimeOffset.Now
-        // }
-
-    ];
+    public ObservableCollection<ApplicationEntry> Applications { get; } = [];
 
     public string[] StatusOptions { get; } =
-[
-    "Offen",
-    "Beworben",
-    "Gespräch",
-    "Absage",
-    "Wartet auf Rückmeldung"
-];
+    [
+        "Offen",
+        "Beworben",
+        "Gespräch",
+        "Absage",
+        "Wartet auf Rückmeldung"
+    ];
 
     public ApplicationEntry? _selectedApplication;
 

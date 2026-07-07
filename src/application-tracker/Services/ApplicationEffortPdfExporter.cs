@@ -86,7 +86,7 @@ public static class ApplicationEffortPdfExporter
                     });
 
                     column.Item().PaddingTop(12).Text(
-                        "Erklärung: Die oben aufgeführten Einträge dokumentieren die unternommenen Arbeitsbemühungen nach bestem Wissen.")
+                        "Hinweis: Die oben aufgeführten Einträge dokumentieren die unternommenen Arbeitsbemühungen als Bewerbungen. Weitere Bemühungen (Gespräche mit Vermittlern / Privatpersonen etc.) werden in einem separaten Dokument aufgeführt.")
                         .FontSize(9)
                         .FontColor("#4B5563");
                 });
